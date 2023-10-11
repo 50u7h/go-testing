@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/go-chi/chi/v5"
 	"net/http"
 	"strings"
 	"testing"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func Test_application_routes(t *testing.T) {
@@ -13,6 +14,7 @@ func Test_application_routes(t *testing.T) {
 		method string
 	}{
 		{"/", "GET"},
+		{"/login", "POST"},
 		{"/static/*", "GET"},
 	}
 

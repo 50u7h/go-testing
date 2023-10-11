@@ -16,16 +16,17 @@ func (app *application) Home(w http.ResponseWriter, r *http.Request) {
 
 type TemplateData struct {
 	IP   string
-	data map[string]any
+	Data map[string]any
 }
 
 func (app *application) render(w http.ResponseWriter, r *http.Request, t string, data *TemplateData) error {
-	// parse the template from disk
+	// parse the template from disk.
 	parsedTemplate, err := template.ParseFiles(path.Join(pathToTemplates, t))
 	if err != nil {
 		http.Error(w, "bad request", http.StatusBadRequest)
 		return err
 	}
+
 	data.IP = app.ipFromContext(r.Context())
 
 	// execute the template, passing it data, if any
@@ -45,13 +46,19 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// validate data
+	form := NewForm(r.PostForm)
+	form.Required("email", "password")
+
+	if !form.Valid() {
+		fmt.Fprint(w, "failed validation")
+		return
+	}
+
 	email := r.Form.Get("email")
 	password := r.Form.Get("password")
 
 	log.Println(email, password)
 
-	_, err = fmt.Fprint(w, email)
-	if err != nil {
-		return
-	}
+	fmt.Fprint(w, email)
 }
