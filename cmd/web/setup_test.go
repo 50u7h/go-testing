@@ -8,7 +8,7 @@ import (
 var app application
 
 func TestMain(m *testing.M) {
-	//pathToTemplates = "./../../templates/"
+	pathToTemplates = "./../../templates/"
 
 	app.Session = getSession()
 
