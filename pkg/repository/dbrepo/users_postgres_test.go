@@ -3,12 +3,17 @@ package dbrepo
 import (
 	"database/sql"
 	"fmt"
-	"github.com/ory/dockertest/v3"
-	"github.com/ory/dockertest/v3/docker"
+	"goTesting/pkg/data"
 	"goTesting/pkg/repository"
 	"log"
 	"os"
 	"testing"
+	"time"
+
+	_ "github.com/jackc/pgx/v5"
+	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/ory/dockertest/v3"
+	"github.com/ory/dockertest/v3/docker"
 )
 
 var (
@@ -113,5 +118,26 @@ func Test_pingDB(t *testing.T) {
 	err := testDB.Ping()
 	if err != nil {
 		t.Error("can't ping database")
+	}
+}
+
+func TestPostgresDBRepoInsertUser(t *testing.T) {
+	testUser := data.User{
+		FirstName: "Admin",
+		LastName:  "User",
+		Email:     "admin@example.com",
+		Password:  "secret",
+		IsAdmin:   1,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+
+	id, err := testRepo.InsertUser(testUser)
+	if err != nil {
+		t.Errorf("insert user returned an error: %s", err)
+	}
+
+	if id != 1 {
+		t.Errorf("insert user returned wrong id; expected 1, but got %d", id)
 	}
 }
