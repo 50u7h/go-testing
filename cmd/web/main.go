@@ -5,7 +5,8 @@ import (
 	"encoding/gob"
 	"flag"
 	"goTesting/pkg/data"
-	"goTesting/pkg/db"
+	"goTesting/pkg/repository"
+	"goTesting/pkg/repository/dbrepo"
 	"log"
 	"net/http"
 
@@ -14,7 +15,7 @@ import (
 
 type application struct {
 	DSN     string
-	DB      db.PostgresConn
+	DB      repository.DatabaseRepo
 	Session *scs.SessionManager
 }
 
@@ -38,7 +39,7 @@ func main() {
 		}
 	}(conn)
 
-	app.DB = db.PostgresConn{DB: conn}
+	app.DB = &dbrepo.PostgresDBRepo{DB: conn}
 
 	// get a session manager
 	app.Session = getSession()
