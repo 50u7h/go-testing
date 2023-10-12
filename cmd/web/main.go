@@ -2,7 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"encoding/gob"
 	"flag"
+	"goTesting/pkg/data"
 	"goTesting/pkg/db"
 	"log"
 	"net/http"
@@ -17,6 +19,8 @@ type application struct {
 }
 
 func main() {
+	gob.Register(data.User{})
+
 	// set up an app config
 	app := application{}
 
