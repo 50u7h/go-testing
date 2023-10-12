@@ -1,8 +1,8 @@
 package main
 
 import (
-	"database/sql"
 	"flag"
+	"goTesting/pkg/db"
 	"log"
 	"net/http"
 
@@ -11,7 +11,7 @@ import (
 
 type application struct {
 	DSN     string
-	DB      *sql.DB
+	DB      db.PostgresConn
 	Session *scs.SessionManager
 }
 
@@ -27,7 +27,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	app.DB = conn
+	app.DB = db.PostgresConn{DB: conn}
 
 	// get a session manager
 	app.Session = getSession()
