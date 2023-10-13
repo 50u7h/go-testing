@@ -274,7 +274,6 @@ func (app *application) insertUser(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-/*
 func (app *application) deleteRefreshCookie(w http.ResponseWriter, r *http.Request) {
 	delCookie := http.Cookie{
 		Name:     "__Host-refresh_token",
@@ -291,4 +290,3 @@ func (app *application) deleteRefreshCookie(w http.ResponseWriter, r *http.Reque
 	http.SetCookie(w, &delCookie)
 	w.WriteHeader(http.StatusAccepted)
 }
-*/
