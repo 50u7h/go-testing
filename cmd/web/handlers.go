@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"io"
 	"log"
-	"mime/multipart"
 	"net/http"
 	"os"
 	"path"
@@ -30,6 +29,7 @@ func (app *application) Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) Profile(w http.ResponseWriter, r *http.Request) {
+
 	_ = app.render(w, r, "profile.page.gohtml", &TemplateData{})
 }
 
@@ -96,8 +96,6 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
-
-	log.Println(password, user.FirstName)
 
 	if !app.authenticate(r, user, password) {
 		app.Session.Put(r.Context(), "error", "Invalid login!")
@@ -180,22 +178,12 @@ func (app *application) UploadFiles(r *http.Request, uploadDir string) ([]*Uploa
 				if err != nil {
 					return nil, err
 				}
-				defer func(infile multipart.File) {
-					err := infile.Close()
-					if err != nil {
-
-					}
-				}(infile)
+				defer infile.Close()
 
 				uploadedFile.OriginalFileName = hdr.Filename
 
 				var outfile *os.File
-				defer func(outfile *os.File) {
-					err := outfile.Close()
-					if err != nil {
-
-					}
-				}(outfile)
+				defer outfile.Close()
 
 				if outfile, err = os.Create(filepath.Join(uploadDir, uploadedFile.OriginalFileName)); nil != err {
 					return nil, err

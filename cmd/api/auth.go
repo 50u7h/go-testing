@@ -3,16 +3,15 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/golang-jwt/jwt/v5"
 	"goTesting/pkg/data"
 	"net/http"
 	"strings"
 	"time"
-
-	"github.com/golang-jwt/jwt/v5"
 )
 
-var jwtTokenExpiry = time.Minute * 15
-var refreshTokenExpiry = time.Hour * 24
+const jwtTokenExpiry = time.Minute * 15
+const refreshTokenExpiry = time.Hour * 24
 
 type TokenPairs struct {
 	Token        string `json:"access_token"`

@@ -5,15 +5,16 @@ package dbrepo
 import (
 	"database/sql"
 	"fmt"
-	"goTesting/pkg/data"
-	"goTesting/pkg/repository"
 	"log"
 	"os"
 	"testing"
 	"time"
+	"webapp/pkg/data"
+	"webapp/pkg/repository"
 
-	_ "github.com/jackc/pgx/v5"
-	_ "github.com/jackc/pgx/v5/stdlib"
+	_ "github.com/jackc/pgconn"
+	_ "github.com/jackc/pgx/v4"
+	_ "github.com/jackc/pgx/v4/stdlib"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 )
@@ -31,8 +32,6 @@ var resource *dockertest.Resource
 var pool *dockertest.Pool
 var testDB *sql.DB
 var testRepo repository.DatabaseRepo
-
-//var testRepo repository.DatabaseRepo
 
 func TestMain(m *testing.M) {
 	// connect to docker; fail if docker not running

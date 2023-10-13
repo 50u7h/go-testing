@@ -2,8 +2,9 @@ package data
 
 import (
 	"errors"
-	"golang.org/x/crypto/bcrypt"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // User describes the data for the User type.

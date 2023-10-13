@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"flag"
 	"fmt"
 	"goTesting/pkg/repository"
@@ -30,12 +29,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer func(conn *sql.DB) {
-		err := conn.Close()
-		if err != nil {
-
-		}
-	}(conn)
+	defer conn.Close()
 
 	app.DB = &dbrepo.PostgresDBRepo{DB: conn}
 

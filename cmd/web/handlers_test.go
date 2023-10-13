@@ -225,7 +225,7 @@ func Test_app_UploadFiles(t *testing.T) {
 	// create a new writer, of type *io.Writer
 	writer := multipart.NewWriter(pw)
 
-	// create a wait-group, and add 1 to it
+	// create a waitgroup, and add 1 to it
 	wg := &sync.WaitGroup{}
 	wg.Add(1)
 
@@ -254,12 +254,7 @@ func Test_app_UploadFiles(t *testing.T) {
 }
 
 func simulatePNGUpload(fileToUpload string, writer *multipart.Writer, t *testing.T, wg *sync.WaitGroup) {
-	defer func(writer *multipart.Writer) {
-		err := writer.Close()
-		if err != nil {
-
-		}
-	}(writer)
+	defer writer.Close()
 	defer wg.Done()
 
 	// create the form data filed 'file' with value being filename
@@ -273,12 +268,7 @@ func simulatePNGUpload(fileToUpload string, writer *multipart.Writer, t *testing
 	if err != nil {
 		t.Error(err)
 	}
-	defer func(f *os.File) {
-		err := f.Close()
-		if err != nil {
-
-		}
-	}(f)
+	defer f.Close()
 
 	// decode the image
 	img, _, err := image.Decode(f)
@@ -291,6 +281,7 @@ func simulatePNGUpload(fileToUpload string, writer *multipart.Writer, t *testing
 	if err != nil {
 		t.Error(err)
 	}
+
 }
 
 func Test_app_UploadProfilePic(t *testing.T) {
@@ -320,10 +311,7 @@ func Test_app_UploadProfilePic(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = mw.Close()
-	if err != nil {
-		return
-	}
+	mw.Close()
 
 	req := httptest.NewRequest(http.MethodPost, "/upload", body)
 	req = addContextAndSessionToRequest(req, app)

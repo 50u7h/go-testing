@@ -1,10 +1,9 @@
-CREATE TABLE public.user_images
-(
-    id         integer NOT NULL,
-    user_id    integer,
-    file_name  character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+CREATE TABLE public.user_images (
+                                    id integer NOT NULL,
+                                    user_id integer,
+                                    file_name character varying(255),
+                                    created_at timestamp without time zone,
+                                    updated_at timestamp without time zone
 );
 
 
@@ -26,16 +25,15 @@ ALTER TABLE public.user_images ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY 
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.users
-(
-    id         integer NOT NULL,
-    first_name character varying(255),
-    last_name  character varying(255),
-    email      character varying(255),
-    password   character varying(60),
-    is_admin   integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+CREATE TABLE public.users (
+                              id integer NOT NULL,
+                              first_name character varying(255),
+                              last_name character varying(255),
+                              email character varying(255),
+                              password character varying(60),
+                              is_admin integer,
+                              created_at timestamp without time zone,
+                              updated_at timestamp without time zone
 );
 
 
@@ -75,10 +73,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.user_images
-    ADD CONSTRAINT user_images_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON
-UPDATE CASCADE
-ON
-DELETE CASCADE;
+    ADD CONSTRAINT user_images_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
