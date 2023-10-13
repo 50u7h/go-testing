@@ -132,7 +132,6 @@ func (app *application) refresh(w http.ResponseWriter, r *http.Request) {
 	_ = app.writeJSON(w, http.StatusOK, tokenPairs)
 }
 
-/*
 func (app *application) refreshUsingCookie(w http.ResponseWriter, r *http.Request) {
 	for _, cookie := range r.Cookies() {
 		if cookie.Name == "__Host-refresh_token" {
@@ -193,7 +192,7 @@ func (app *application) refreshUsingCookie(w http.ResponseWriter, r *http.Reques
 
 	app.errorJSON(w, errors.New("unauthorized"), http.StatusUnauthorized)
 }
-*/
+
 // allUsers returns a list of all users as JSON
 func (app *application) allUsers(w http.ResponseWriter, r *http.Request) {
 	users, err := app.DB.AllUsers()
