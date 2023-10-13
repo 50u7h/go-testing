@@ -105,11 +105,11 @@ func Test_app_userHandlers(t *testing.T) {
 	}{
 		{"allUsers", "GET", "", "", app.allUsers, http.StatusOK},
 		{"deleteUser", "DELETE", "", "1", app.deleteUser, http.StatusNoContent},
-		//{"deleteUser bad URL param", "DELETE", "", "Y", app.deleteUser, http.StatusBadRequest},
+		{"deleteUser bad URL param", "DELETE", "", "Y", app.deleteUser, http.StatusBadRequest},
 		{"getUser valid", "GET", "", "1", app.getUser, http.StatusOK},
 		{"getUser invalid", "GET", "", "100", app.getUser, http.StatusBadRequest},
-		//{"getUser bad URL param", "GET", "", "Y", app.getUser, http.StatusBadRequest},
-		/*{
+		{"getUser bad URL param", "GET", "", "Y", app.getUser, http.StatusBadRequest},
+		{
 			"updateUser valid",
 			"PATCH",
 			`{"id":1,"first_name":"Administrator","last_name":"User","email":"admin@example.com"}`,
@@ -156,7 +156,7 @@ func Test_app_userHandlers(t *testing.T) {
 			"",
 			app.insertUser,
 			http.StatusBadRequest,
-		},*/
+		},
 	}
 
 	for _, e := range tests {
