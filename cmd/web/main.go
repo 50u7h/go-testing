@@ -25,7 +25,7 @@ func main() {
 	// set up an app config
 	app := application{}
 
-	flag.StringVar(&app.DSN, "dsn", "host=localhost port=5432 user=postgres password=Aa123456 dbname=users sslmode=disable timezone=UTC connect_timeout=5", "Posgtres connection")
+	flag.StringVar(&app.DSN, "dsn", "host=localhost port=5432 user=postgres password=postgres dbname=users sslmode=disable timezone=UTC connect_timeout=5", "Posgtres connection")
 	flag.Parse()
 
 	conn, err := app.connectToDB()
