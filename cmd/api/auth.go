@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"goTesting/pkg/data"
 	"net/http"
 	"strings"
 	"time"
@@ -80,6 +79,7 @@ func (app *application) getTokenFromHeaderAndVerify(w http.ResponseWriter, r *ht
 	return token, claims, nil
 }
 
+/*
 func (app *application) generateTokenPair(user *data.User) (TokenPairs, error) {
 	// Create the token.
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -125,4 +125,4 @@ func (app *application) generateTokenPair(user *data.User) (TokenPairs, error) {
 	}
 
 	return tokenPairs, nil
-}
+}*/
